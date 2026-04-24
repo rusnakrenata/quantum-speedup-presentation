@@ -10,9 +10,9 @@ Reveal.initialize({
     history: true,
     keyboard: true,
     overview: true,
-    width: 1200,
-    height: 700,
-    margin: 0.1,
+    width: 1920,
+    height: 1080,
+    margin: 0.04,
     minScale: 0.2,
     maxScale: 2.0
 });
@@ -55,10 +55,11 @@ function createHardwareChart() {
                     {x: 2022, y: 433},
                     {x: 2023, y: 1121},
                 ],
-                backgroundColor: 'rgba(59, 130, 246, 0.7)',
-                borderColor: 'rgba(59, 130, 246, 1)',
-                borderWidth: 2,
-                pointRadius: 6,
+                backgroundColor: '#0891b2',
+                borderColor: '#0891b2',
+                borderWidth: 3,
+                pointRadius: 8,
+                pointHoverRadius: 10,
             },
             {
                 label: 'Google',
@@ -66,10 +67,11 @@ function createHardwareChart() {
                     {x: 2018, y: 72},
                     {x: 2019, y: 53},
                 ],
-                backgroundColor: 'rgba(239, 68, 68, 0.7)',
-                borderColor: 'rgba(239, 68, 68, 1)',
-                borderWidth: 2,
-                pointRadius: 6,
+                backgroundColor: '#ef4444',
+                borderColor: '#ef4444',
+                borderWidth: 3,
+                pointRadius: 8,
+                pointHoverRadius: 10,
             },
             {
                 label: 'IonQ',
@@ -77,10 +79,11 @@ function createHardwareChart() {
                     {x: 2020, y: 32},
                     {x: 2023, y: 35},
                 ],
-                backgroundColor: 'rgba(16, 185, 129, 0.7)',
-                borderColor: 'rgba(16, 185, 129, 1)',
-                borderWidth: 2,
-                pointRadius: 6,
+                backgroundColor: '#14b8a6',
+                borderColor: '#14b8a6',
+                borderWidth: 3,
+                pointRadius: 8,
+                pointHoverRadius: 10,
             },
             {
                 label: 'D-Wave (Annealing)',
@@ -90,10 +93,11 @@ function createHardwareChart() {
                     {x: 2017, y: 2000},
                     {x: 2020, y: 5000},
                 ],
-                backgroundColor: 'rgba(251, 191, 36, 0.7)',
-                borderColor: 'rgba(251, 191, 36, 1)',
-                borderWidth: 2,
-                pointRadius: 6,
+                backgroundColor: '#f59e0b',
+                borderColor: '#f59e0b',
+                borderWidth: 3,
+                pointRadius: 8,
+                pointHoverRadius: 10,
             },
             {
                 label: 'Rigetti',
@@ -101,20 +105,22 @@ function createHardwareChart() {
                     {x: 2018, y: 19},
                     {x: 2021, y: 80},
                 ],
-                backgroundColor: 'rgba(139, 92, 246, 0.7)',
-                borderColor: 'rgba(139, 92, 246, 1)',
-                borderWidth: 2,
-                pointRadius: 6,
+                backgroundColor: '#8b5cf6',
+                borderColor: '#8b5cf6',
+                borderWidth: 3,
+                pointRadius: 8,
+                pointHoverRadius: 10,
             },
             {
                 label: 'Atom Computing',
                 data: [
                     {x: 2023, y: 1000},
                 ],
-                backgroundColor: 'rgba(236, 72, 153, 0.7)',
-                borderColor: 'rgba(236, 72, 153, 1)',
-                borderWidth: 2,
-                pointRadius: 6,
+                backgroundColor: '#ec4899',
+                borderColor: '#ec4899',
+                borderWidth: 3,
+                pointRadius: 8,
+                pointHoverRadius: 10,
             },
         ]
     };
@@ -132,19 +138,24 @@ function createHardwareChart() {
                     title: {
                         display: true,
                         text: 'Year',
-                        color: '#fff',
+                        color: '#1e293b',
                         font: {
-                            size: 14
+                            size: 16,
+                            weight: 600
                         }
                     },
                     min: 2010,
                     max: 2024,
                     ticks: {
-                        color: '#fff',
-                        stepSize: 2
+                        color: '#64748b',
+                        stepSize: 2,
+                        font: {
+                            size: 14
+                        }
                     },
                     grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
+                        color: 'rgba(226, 232, 240, 0.5)',
+                        lineWidth: 1
                     }
                 },
                 y: {
@@ -152,13 +163,17 @@ function createHardwareChart() {
                     title: {
                         display: true,
                         text: 'Qubit Count (log scale)',
-                        color: '#fff',
+                        color: '#1e293b',
                         font: {
-                            size: 14
+                            size: 16,
+                            weight: 600
                         }
                     },
                     ticks: {
-                        color: '#fff',
+                        color: '#64748b',
+                        font: {
+                            size: 14
+                        },
                         callback: function(value) {
                             if (value === 1 || value === 10 || value === 100 || value === 1000 || value === 10000) {
                                 return value;
@@ -167,7 +182,8 @@ function createHardwareChart() {
                         }
                     },
                     grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
+                        color: 'rgba(226, 232, 240, 0.5)',
+                        lineWidth: 1
                     }
                 }
             },
@@ -176,66 +192,36 @@ function createHardwareChart() {
                     display: true,
                     position: 'right',
                     labels: {
-                        color: '#fff',
+                        color: '#1e293b',
                         font: {
-                            size: 11
+                            size: 13,
+                            weight: 500
                         },
                         usePointStyle: true,
-                        padding: 10
+                        padding: 15,
+                        boxWidth: 12,
+                        boxHeight: 12
                     }
                 },
                 tooltip: {
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    titleColor: '#1e293b',
+                    bodyColor: '#64748b',
+                    borderColor: '#e2e8f0',
+                    borderWidth: 1,
+                    padding: 12,
+                    bodyFont: {
+                        size: 13
+                    },
+                    titleFont: {
+                        size: 14,
+                        weight: 600
+                    },
                     callbacks: {
                         label: function(context) {
                             return context.dataset.label + ': ' + 
                                    context.parsed.y + ' qubits (' + 
                                    context.parsed.x + ')';
-                        }
-                    }
-                },
-                annotation: {
-                    annotations: {
-                        nisq: {
-                            type: 'box',
-                            xMin: 2016,
-                            xMax: 2024,
-                            yMin: 50,
-                            yMax: 10000,
-                            backgroundColor: 'rgba(59, 130, 246, 0.05)',
-                            borderColor: 'rgba(59, 130, 246, 0.3)',
-                            borderWidth: 2,
-                        },
-                        utility: {
-                            type: 'line',
-                            xMin: 2023,
-                            xMax: 2023,
-                            yMin: 1,
-                            yMax: 10000,
-                            borderColor: 'rgba(16, 185, 129, 0.7)',
-                            borderWidth: 2,
-                            borderDash: [5, 5],
-                            label: {
-                                display: true,
-                                content: 'Utility Era',
-                                position: 'start',
-                                color: '#10b981'
-                            }
-                        },
-                        advantage: {
-                            type: 'line',
-                            xMin: 2019,
-                            xMax: 2019,
-                            yMin: 1,
-                            yMax: 10000,
-                            borderColor: 'rgba(251, 191, 36, 0.7)',
-                            borderWidth: 2,
-                            borderDash: [5, 5],
-                            label: {
-                                display: true,
-                                content: 'Quantum Supremacy',
-                                position: 'start',
-                                color: '#fbbf24'
-                            }
                         }
                     }
                 }
