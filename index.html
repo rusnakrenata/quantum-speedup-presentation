@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Speedup Is Hard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Slide 1: Title -->
+            <section data-background-gradient="linear-gradient(to bottom, #1e3a8a, #3b82f6)">
+                <h2>Quantum Speedup Is Hard</h2>
+                <h3>From Famous Algorithms to Variational QNNs in the NISQ Era</h3>
+                <p style="margin-top: 50px; font-size: 0.8em;">
+                    Understanding Quantum Utility in the Path from Theory to Practice
+                </p>
+                <p style="margin-top: 100px; font-size: 0.6em;">
+                    [Your Name]<br>
+                    [Your Affiliation]<br>
+                    [Conference Name & Date]
+                </p>
+            </section>
+
+            <!-- Slide 2: Timeline Part 1 -->
+            <section>
+                <h3>From Quantum Theory to Quantum Computing</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">1900-1927</div>
+                        <div class="timeline-content">
+                            <strong>Quantum Mechanics</strong>
+                            <p>Planck, Einstein, Bohr, Heisenberg, Schrödinger</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1982</div>
+                        <div class="timeline-content">
+                            <strong>Feynman</strong>
+                            <p>Quantum simulation proposal</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1985</div>
+                        <div class="timeline-content">
+                            <strong>Deutsch</strong>
+                            <p>Universal quantum computer</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1994</div>
+                        <div class="timeline-content highlight">
+                            <strong>Shor's Algorithm</strong>
+                            <p>Exponential speedup for factoring</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: Timeline Part 2 -->
+            <section>
+                <h3>From Quantum Theory to Quantum Computing</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">1996</div>
+                        <div class="timeline-content highlight">
+                            <strong>Grover's Algorithm</strong>
+                            <p>Quadratic speedup for search</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1996-2000</div>
+                        <div class="timeline-content">
+                            <strong>Error Correction</strong>
+                            <p>Shor & Steane codes</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2011</div>
+                        <div class="timeline-content">
+                            <strong>NISQ Era</strong>
+                            <p>Term coined by John Preskill</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2019</div>
+                        <div class="timeline-content highlight">
+                            <strong>Quantum Supremacy</strong>
+                            <p>Google Sycamore</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2023+</div>
+                        <div class="timeline-content highlight">
+                            <strong>Quantum Utility</strong>
+                            <p>Practical value demonstrations</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: Hardware Development -->
+            <section>
+                <h3>Development of Quantum Computers</h3>
+                <div style="font-size: 0.7em;">
+                    <canvas id="hardwareChart" width="800" height="400"></canvas>
+                    <div class="legend" style="margin-top: 20px;">
+                        <div class="era-marker nisq">NISQ Era (2016+): 50-1000+ qubits, no error correction</div>
+                        <div class="era-marker utility">Quantum Utility (2023+): Practical problems beyond simulation</div>
+                        <div class="era-marker advantage">Quantum Advantage: Specific tasks outperforming classical</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: Beyond Qubit Count -->
+            <section>
+                <h3>Qubit Count ≠ Quantum Performance</h3>
+                <h4 style="color: #3b82f6; margin-bottom: 30px;">"100 high-quality qubits > 1000 noisy qubits"</h4>
+                <div class="two-column">
+                    <div>
+                        <h4>Hardware Factors</h4>
+                        <ul style="font-size: 0.7em;">
+                            <li><strong>Gate Fidelity:</strong> 99.9%+ needed for 2-qubit gates</li>
+                            <li><strong>Coherence Time:</strong> T1/T2 (100μs - 10ms)</li>
+                            <li><strong>Connectivity:</strong> Native topology matters</li>
+                            <li><strong>Error Rate:</strong> ~0.1-1% per gate</li>
+                            <li><strong>Noise:</strong> Gate, readout, crosstalk</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>System Factors</h4>
+                        <ul style="font-size: 0.7em;">
+                            <li><strong>Circuit Depth:</strong> Limited by noise</li>
+                            <li><strong>Measurement:</strong> Readout fidelity</li>
+                            <li><strong>Calibration:</strong> Drift over time</li>
+                            <li><strong>Control:</strong> Real-time feedback</li>
+                            <li><strong>Scalability:</strong> Physical constraints</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: Algorithms Bubble -->
+            <section>
+                <h3>Quantum Algorithms & Their Speedup</h3>
+                <div class="bubble-container">
+                    <div class="bubble exponential large" style="top: 15%; left: 15%;">
+                        <div class="bubble-label">Shor's Algorithm</div>
+                        <div class="bubble-detail">Exponential (factoring)</div>
+                        <div class="bubble-note">*Requires fault-tolerance</div>
+                    </div>
+                    <div class="bubble exponential medium" style="top: 15%; right: 15%;">
+                        <div class="bubble-label">Quantum Simulation</div>
+                        <div class="bubble-detail">Exponential</div>
+                        <div class="bubble-note">Chemistry, materials</div>
+                    </div>
+                    <div class="bubble exponential small" style="top: 45%; left: 25%;">
+                        <div class="bubble-label">HHL</div>
+                        <div class="bubble-detail">Exponential</div>
+                        <div class="bubble-note">*Strong assumptions</div>
+                    </div>
+                    <div class="bubble quadratic large" style="top: 45%; right: 20%;">
+                        <div class="bubble-label">Grover's Search</div>
+                        <div class="bubble-detail">Quadratic</div>
+                    </div>
+                    <div class="bubble heuristic medium" style="top: 70%; left: 15%;">
+                        <div class="bubble-label">QAOA</div>
+                        <div class="bubble-detail">Problem-specific</div>
+                    </div>
+                    <div class="bubble heuristic medium" style="top: 70%; left: 45%;">
+                        <div class="bubble-label">VQE</div>
+                        <div class="bubble-detail">Problem-specific</div>
+                    </div>
+                    <div class="bubble heuristic medium" style="top: 70%; right: 15%;">
+                        <div class="bubble-label">Quantum Annealing</div>
+                        <div class="bubble-detail">Heuristic</div>
+                    </div>
+                    <div class="bubble emerging small" style="top: 25%; left: 50%;">
+                        <div class="bubble-label">QNNs</div>
+                        <div class="bubble-detail">Emerging</div>
+                    </div>
+                </div>
+                <p style="margin-top: 20px; font-size: 0.8em; color: #fbbf24;">
+                    Key Insight: Most practical speedups are quadratic or problem-specific
+                </p>
+            </section>
+
+            <!-- Slide 7: Quantum Utility -->
+            <section>
+                <h3>Quantum Utility: Redefining Success</h3>
+                <div class="utility-framework">
+                    <div class="utility-tier">
+                        <div class="tier-number">1</div>
+                        <div class="tier-content">
+                            <h4>Quantum Supremacy/Advantage (2019)</h4>
+                            <p>Outperform classical computers on <em>any</em> task</p>
+                            <p class="note">Often contrived problems (random circuits)</p>
+                        </div>
+                    </div>
+                    <div class="utility-tier highlight">
+                        <div class="tier-number">2</div>
+                        <div class="tier-content">
+                            <h4>Quantum Utility (2023+) ← Current Focus</h4>
+                            <p>Solve <em>practical, relevant</em> problems</p>
+                            <ul style="font-size: 0.8em;">
+                                <li>Value even if not faster than classical</li>
+                                <li>Explore solutions classical computers can't find</li>
+                                <li>Utility-scale demonstrations (IBM, others)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="utility-tier">
+                        <div class="tier-number">3</div>
+                        <div class="tier-content">
+                            <h4>Practical Quantum Advantage (Future)</h4>
+                            <p>Both useful <em>and</em> faster</p>
+                            <p class="note">Clear commercial/scientific value</p>
+                        </div>
+                    </div>
+                </div>
+                <p style="margin-top: 30px; font-size: 1.1em; color: #3b82f6;">
+                    <strong>"Utility asks: Is it useful? Not just: Is it faster?"</strong>
+                </p>
+            </section>
+
+            <!-- Slide 8: NISQ Era Characteristics -->
+            <section>
+                <h3>NISQ Era: Where We Are</h3>
+                <div class="two-column">
+                    <div>
+                        <h4>Characteristics</h4>
+                        <ul style="font-size: 0.8em;">
+                            <li>50-1000+ qubits</li>
+                            <li>No error correction</li>
+                            <li>Limited circuit depth</li>
+                            <li>Noise accumulation</li>
+                            <li>Short coherence times</li>
+                            <li>Error mitigation needed</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>The NISQ Challenge</h4>
+                        <div class="challenge-box">
+                            <p>"Bridging the gap between NISQ and fault-tolerance"</p>
+                            <ul style="font-size: 0.7em; margin-top: 15px;">
+                                <li>Too many qubits for classical simulation</li>
+                                <li>Too noisy for complex algorithms</li>
+                                <li>Must find problems with quantum advantage</li>
+                                <li>Need hybrid approaches</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: NISQ Achievements -->
+            <section>
+                <h3>NISQ: Achievements & Direction</h3>
+                <div class="two-column">
+                    <div class="achievement-box">
+                        <h4>✓ What We've Achieved</h4>
+                        <ul style="font-size: 0.75em;">
+                            <li>Quantum supremacy demonstrations</li>
+                            <li>Small-scale quantum simulations</li>
+                            <li>Proof-of-concept variational algorithms</li>
+                            <li>Error mitigation techniques</li>
+                            <li>Utility-scale experiments</li>
+                            <li>Commercial quantum computers</li>
+                        </ul>
+                    </div>
+                    <div class="direction-box">
+                        <h4>→ Where We're Heading</h4>
+                        <ul style="font-size: 0.75em;">
+                            <li>Logical qubits with error correction</li>
+                            <li>Fault-tolerant quantum computing</li>
+                            <li>Practical quantum advantage</li>
+                            <li>Scalable architectures</li>
+                            <li>Quantum-classical integration</li>
+                            <li>Real-world applications</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 10: Variational Paradigm -->
+            <section>
+                <h3>The Variational Paradigm</h3>
+                <div class="variational-diagram">
+                    <div class="classical-box">
+                        <h4>Classical Computer</h4>
+                        <p>Optimizer</p>
+                    </div>
+                    <div class="flow-down">Parameters θ →</div>
+                    <div class="quantum-box">
+                        <h4>Quantum Computer</h4>
+                        <p>Parameterized Circuit U(θ)</p>
+                    </div>
+                    <div class="flow-up">← Measure ⟨H⟩</div>
+                </div>
+                <div style="margin-top: 40px;">
+                    <h4>Key Algorithms</h4>
+                    <div class="algorithm-grid">
+                        <div class="algo-card">
+                            <strong>QAOA</strong>
+                            <p>Quantum Approximate Optimization</p>
+                            <p class="algo-use">Combinatorial optimization, MaxCut</p>
+                        </div>
+                        <div class="algo-card">
+                            <strong>VQE</strong>
+                            <p>Variational Quantum Eigensolver</p>
+                            <p class="algo-use">Molecular ground states, materials</p>
+                        </div>
+                        <div class="algo-card">
+                            <strong>QNNs</strong>
+                            <p>Quantum Neural Networks</p>
+                            <p class="algo-use">Machine learning, classification</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 11: Hybrid Applications -->
+            <section>
+                <h3>Hybrid Algorithms: Applications</h3>
+                <div class="application-grid">
+                    <div class="app-card">
+                        <h4>🧠 Hybrid Neural Networks</h4>
+                        <ul style="font-size: 0.7em;">
+                            <li>Classical + quantum layers</li>
+                            <li>Quantum feature embedding</li>
+                            <li>Quantum kernels for ML</li>
+                            <li>Transfer learning</li>
+                        </ul>
+                    </div>
+                    <div class="app-card">
+                        <h4>🎯 Optimization</h4>
+                        <ul style="font-size: 0.7em;">
+                            <li>Portfolio optimization</li>
+                            <li>Supply chain logistics</li>
+                            <li>Scheduling problems</li>
+                            <li>Resource allocation</li>
+                        </ul>
+                    </div>
+                    <div class="app-card">
+                        <h4>🔬 Quantum Simulation</h4>
+                        <ul style="font-size: 0.7em;">
+                            <li>Drug discovery</li>
+                            <li>Materials design</li>
+                            <li>Chemical reactions</li>
+                            <li>Molecular dynamics</li>
+                        </ul>
+                    </div>
+                    <div class="app-card">
+                        <h4>💧 Reservoir Computing</h4>
+                        <ul style="font-size: 0.7em;">
+                            <li>Exploit quantum dynamics</li>
+                            <li>Reduced training overhead</li>
+                            <li>Time-series prediction</li>
+                            <li>Emerging research area</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 12: Quantum Annealing -->
+            <section>
+                <h3>Quantum Annealing: An Alternative Hybrid Approach</h3>
+                <div class="two-column">
+                    <div>
+                        <h4>What is Quantum Annealing?</h4>
+                        <ul style="font-size: 0.75em;">
+                            <li>Physical analog of optimization</li>
+                            <li>Evolution from simple → problem Hamiltonian</li>
+                            <li>D-Wave systems (2000+ qubits)</li>
+                            <li>Not universal quantum computing</li>
+                        </ul>
+                        <h4 style="margin-top: 30px;">Advantages</h4>
+                        <ul style="font-size: 0.75em;">
+                            <li>✓ Naturally hybrid approach</li>
+                            <li>✓ Scalable qubit counts</li>
+                            <li>✓ Longer coherence (ms-scale)</li>
+                            <li>✓ Practical applications today</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Key Differences from Gate-Based</h4>
+                        <table style="font-size: 0.65em; width: 100%;">
+                            <tr>
+                                <th>Aspect</th>
+                                <th>Annealing</th>
+                                <th>Gate-Based</th>
+                            </tr>
+                            <tr>
+                                <td>Purpose</td>
+                                <td>Optimization</td>
+                                <td>Universal</td>
+                            </tr>
+                            <tr>
+                                <td>Qubits</td>
+                                <td>2000+</td>
+                                <td>100-1000</td>
+                            </tr>
+                            <tr>
+                                <td>Coherence</td>
+                                <td>~ms</td>
+                                <td>~μs</td>
+                            </tr>
+                            <tr>
+                                <td>Noise</td>
+                                <td>Different profile</td>
+                                <td>Gate errors</td>
+                            </tr>
+                        </table>
+                        <div class="research-box" style="margin-top: 20px;">
+                            <h4>My Research</h4>
+                            <p style="font-size: 0.7em;">[Add your specific contributions and applications here]</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 13: Key Challenges -->
+            <section>
+                <h3>Key Challenges in Variational Quantum Computing</h3>
+                <div class="challenge-grid">
+                    <div class="challenge-card">
+                        <div class="challenge-icon">📉</div>
+                        <h4>Barren Plateaus</h4>
+                        <p>Vanishing gradients in deep circuits</p>
+                        <ul style="font-size: 0.7em;">
+                            <li>Exponentially hard to train</li>
+                            <li>Solutions: local cost functions</li>
+                            <li>Shallow circuit architectures</li>
+                        </ul>
+                    </div>
+                    <div class="challenge-card">
+                        <div class="challenge-icon">🎯</div>
+                        <h4>Trainability</h4>
+                        <p>Optimization landscape complexity</p>
+                        <ul style="font-size: 0.7em;">
+                            <li>Local minima proliferation</li>
+                            <li>Noise interference</li>
+                            <li>Classical optimizer limitations</li>
+                        </ul>
+                    </div>
+                    <div class="challenge-card">
+                        <div class="challenge-icon">🔄</div>
+                        <h4>Problem Encoding</h4>
+                        <p>How to embed classical data</p>
+                        <ul style="font-size: 0.7em;">
+                            <li>Circuit depth overhead</li>
+                            <li>Information bottlenecks</li>
+                            <li>Feature map design</li>
+                        </ul>
+                    </div>
+                    <div class="challenge-card">
+                        <div class="challenge-icon">⚖️</div>
+                        <h4>Expressibility vs Entanglement</h4>
+                        <p>The Goldilocks problem</p>
+                        <ul style="font-size: 0.7em;">
+                            <li>Too much → barren plateaus</li>
+                            <li>Too little → no quantum advantage</li>
+                            <li>Need careful circuit design</li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="margin-top: 30px; font-style: italic; color: #fbbf24;">
+                    These are fundamental quantum ML research questions
+                </p>
+            </section>
+
+            <!-- Slide 14: Why Variational Methods Matter -->
+            <section>
+                <h3>Why Variational Methods Matter</h3>
+                <h4 style="color: #10b981; margin-bottom: 30px;">Despite challenges, variational approaches are promising:</h4>
+                <div class="reasons-grid">
+                    <div class="reason-item">
+                        <span class="checkmark">✓</span>
+                        <div>
+                            <strong>NISQ-friendly</strong>
+                            <p>Work with noisy, shallow circuits</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span class="checkmark">✓</span>
+                        <div>
+                            <strong>Flexible</strong>
+                            <p>Adaptable to many problem types</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span class="checkmark">✓</span>
+                        <div>
+                            <strong>Hybrid</strong>
+                            <p>Leverage classical optimization expertise</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span class="checkmark">✓</span>
+                        <div>
+                            <strong>Measurable progress</strong>
+                            <p>Can benchmark on near-term hardware</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span class="checkmark">✓</span>
+                        <div>
+                            <strong>Rich theory</strong>
+                            <p>Active research on trainability, expressibility</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span class="checkmark">✓</span>
+                        <div>
+                            <strong>Path to advantage</strong>
+                            <p>May find quantum advantage before fault-tolerance</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 15: Conclusions -->
+            <section>
+                <h3>Key Takeaways</h3>
+                <div class="takeaways">
+                    <div class="takeaway-item">
+                        <span class="number">1</span>
+                        <p><strong>Speedup is Hard:</strong> Exponential advantages are rare and require strong assumptions</p>
+                    </div>
+                    <div class="takeaway-item">
+                        <span class="number">2</span>
+                        <p><strong>Beyond Qubits:</strong> Quality matters more than quantity</p>
+                    </div>
+                    <div class="takeaway-item">
+                        <span class="number">3</span>
+                        <p><strong>Utility over Advantage:</strong> Practical value is the near-term goal</p>
+                    </div>
+                    <div class="takeaway-item">
+                        <span class="number">4</span>
+                        <p><strong>NISQ Reality:</strong> Hybrid methods dominate the current era</p>
+                    </div>
+                    <div class="takeaway-item">
+                        <span class="number">5</span>
+                        <p><strong>Variational Promise:</strong> QNNs and hybrid algorithms are the most viable near-term path</p>
+                    </div>
+                    <div class="takeaway-item">
+                        <span class="number">6</span>
+                        <p><strong>Fundamental Challenges:</strong> Barren plateaus and trainability remain open problems</p>
+                    </div>
+                    <div class="takeaway-item">
+                        <span class="number">7</span>
+                        <p><strong>Multiple Pathways:</strong> Gate-based, annealing, and other approaches all contribute</p>
+                    </div>
+                </div>
+                <p style="margin-top: 40px; font-size: 1.3em; color: #3b82f6;">
+                    <strong>"Quantum advantage may be hard, but quantum utility is within reach"</strong>
+                </p>
+            </section>
+
+            <!-- Slide 16: Future & Questions -->
+            <section data-background-gradient="linear-gradient(to bottom, #1e3a8a, #3b82f6)">
+                <h3>Future Outlook</h3>
+                <div class="future-grid">
+                    <div class="future-item">
+                        <h4>Error Correction Milestones</h4>
+                        <p>Moving toward logical qubits</p>
+                    </div>
+                    <div class="future-item">
+                        <h4>Quantum Utility Demonstrations</h4>
+                        <p>More practical applications</p>
+                    </div>
+                    <div class="future-item">
+                        <h4>Hybrid Integration</h4>
+                        <p>Quantum + Classical HPC</p>
+                    </div>
+                    <div class="future-item">
+                        <h4>Scalable Architectures</h4>
+                        <p>Modular quantum systems</p>
+                    </div>
+                </div>
+                <h2 style="margin-top: 80px; color: white;">Questions?</h2>
+                <p style="margin-top: 30px; font-size: 0.8em;">
+                    [Your Email] | [Your Website/GitHub]
+                </p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
